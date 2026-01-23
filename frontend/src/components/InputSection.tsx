@@ -188,8 +188,8 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
           </button>
         </div>
         <p className="text-steam-light/50 text-xs mt-2">
-          💡 API 키가 있으면 13개 항목 전체 AI 분석이 가능합니다.
-          
+        💡 API 키가 있으면 13개 항목 전체 AI 분석이 가능합니다.
+          <a
             href={getProviderLink()}
             target="_blank"
             rel="noopener noreferrer"
