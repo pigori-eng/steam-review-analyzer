@@ -262,13 +262,3 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
   )
 }
 ```
-
-**Commit changes** 클릭!
-
----
-
-## 2단계: App.tsx에서 Footer만 수정
-
-GitHub에서:
-```
-frontend/src/App.tsx
