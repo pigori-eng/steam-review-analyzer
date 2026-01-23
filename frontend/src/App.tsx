@@ -156,7 +156,7 @@ function App() {
 
       {/* 푸터 */}
       <footer className="py-6 text-center text-steam-light/40 text-sm">
-        <p>Made with ❤️ for Game Developers & PMs</p>
+        <p>Made by Chang yoon</p>
       </footer>
     </div>
   )
