@@ -88,7 +88,7 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
       </div>
 
       {/* 입력 카드 */}
-      <div className="card max-w-2xl mx-auto">
+      <div className="card max-w-4xl mx-auto">
         {/* URL 입력 */}
         <div className="mb-6">
           <label className="block text-steam-light/80 text-sm mb-2">
@@ -246,8 +246,8 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
 
       {/* 분석 항목 미리보기 */}
       <div className="text-center">
-        <h3 className="text-lg font-semibold mb-4">📋 분석되는 13개 항목</h3>
-        <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
+        <h3 className="text-lg font-semibold mb-6">📋 분석되는 13개 항목</h3>
+        <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
           {analysisItems.map((item, index) => (
             <span
               key={index}
