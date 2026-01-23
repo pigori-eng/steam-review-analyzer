@@ -18,6 +18,7 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
     gemini: ''
   })
 
+  // 페이지 로드 시 저장된 API 키 불러오기
   useEffect(() => {
     const saved = {
       claude: localStorage.getItem('api_key_claude') || '',
@@ -28,10 +29,12 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
     setApiKey(saved[aiProvider])
   }, [])
 
+  // AI 제공자 변경 시 해당 키 불러오기
   useEffect(() => {
     setApiKey(savedKeys[aiProvider])
   }, [aiProvider, savedKeys])
 
+  // API 키 저장
   const handleSaveApiKey = () => {
     localStorage.setItem(`api_key_${aiProvider}`, apiKey)
     setSavedKeys(prev => ({
@@ -65,9 +68,28 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
     }
   }
 
+  const analysisItems = [
+    '핵심 요약', '사용자 평가', '감정 분석', '플레이타임',
+    '키워드 분석', '지역별 분석', '플레이어 여정', '루팅 시스템',
+    '난이도 밸런스', '기술 이슈', '커뮤니티', '경쟁작 비교', '액션 아이템'
+  ]
+
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="bg-steam-dark/60 backdrop-blur-sm rounded-2xl p-8 border border-steam-blue/20 shadow-xl">
+    <div className="space-y-8">
+      {/* 히어로 섹션 */}
+      <div className="text-center mb-8">
+        <h2 className="text-4xl font-bold mb-4">
+          <span className="mr-2">🔍</span>
+          Steam 리뷰 분석
+        </h2>
+        <p className="text-steam-light/70">
+          Steam 게임 URL만 입력하면 AI가 자동으로 리뷰를 분석합니다
+        </p>
+      </div>
+
+      {/* 입력 카드 */}
+      <div className="card max-w-2xl mx-auto">
+        {/* URL 입력 */}
         <div className="mb-6">
           <label className="block text-steam-light/80 text-sm mb-2">
             📎 Steam 게임 URL 또는 App ID
@@ -84,6 +106,7 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
           </p>
         </div>
 
+        {/* 리뷰 개수 & 기간 필터 */}
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div>
             <label className="block text-steam-light/80 text-sm mb-2">
@@ -119,47 +142,46 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
           </div>
         </div>
 
+        {/* AI 선택 */}
         <div className="mb-6">
           <label className="block text-steam-light/80 text-sm mb-2">
             🤖 AI 선택
           </label>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-3">
             <button
               onClick={() => setAiProvider('claude')}
-              className={`py-5 px-6 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-2 min-h-[100px] ${
+              className={`py-3 px-4 rounded-lg border-2 transition-all ${
                 aiProvider === 'claude'
                   ? 'border-orange-500 bg-orange-500/20 text-orange-400'
                   : 'border-steam-blue/30 bg-steam-dark/50 text-steam-light/60 hover:border-steam-blue/50'
               }`}
             >
-              <span className="text-3xl">🟠</span>
-              <span className="font-semibold text-lg">Claude</span>
+              🟠 Claude
             </button>
             <button
               onClick={() => setAiProvider('openai')}
-              className={`py-5 px-6 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-2 min-h-[100px] ${
+              className={`py-3 px-4 rounded-lg border-2 transition-all ${
                 aiProvider === 'openai'
                   ? 'border-green-500 bg-green-500/20 text-green-400'
                   : 'border-steam-blue/30 bg-steam-dark/50 text-steam-light/60 hover:border-steam-blue/50'
               }`}
             >
-              <span className="text-3xl">🟢</span>
-              <span className="font-semibold text-lg">ChatGPT</span>
+              🟢 ChatGPT
             </button>
             <button
               onClick={() => setAiProvider('gemini')}
-              className={`py-5 px-6 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-2 min-h-[100px] ${
+              className={`py-3 px-4 rounded-lg border-2 transition-all ${
                 aiProvider === 'gemini'
                   ? 'border-blue-500 bg-blue-500/20 text-blue-400'
                   : 'border-steam-blue/30 bg-steam-dark/50 text-steam-light/60 hover:border-steam-blue/50'
               }`}
             >
-              <span className="text-3xl">🔵</span>
-              <span className="font-semibold text-lg">Gemini</span>
+              🔵 Gemini
             </button>
           </div>
         </div>
 
+        {/* API 키 입력 + 저장 버튼 */}
         <div className="mb-6">
           <label className="block text-steam-light/80 text-sm mb-2">
             🔑 {getProviderName()} API 키 (선택사항)
@@ -205,6 +227,7 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
           )}
         </div>
 
+        {/* 버튼들 */}
         <div className="flex gap-4">
           <button
             onClick={handleSubmit}
@@ -221,13 +244,14 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
         </div>
       </div>
 
-      <div className="mt-8 bg-steam-dark/40 backdrop-blur-sm rounded-2xl p-6 border border-steam-blue/10">
-        <h3 className="text-center text-steam-light/80 mb-4 text-lg">📋 분석되는 13개 항목</h3>
-        <div className="grid grid-cols-4 gap-3">
-          {['핵심 요약', '사용자 평가', '감정 분석', '플레이타임', '키워드 분석', '지역별 분석', '플레이어 여정', '루팅 시스템', '난이도 밸런스', '기술 이슈', '커뮤니티', '경쟁작 비교', '액션 아이템'].map((item, index) => (
+      {/* 분석 항목 미리보기 */}
+      <div className="text-center">
+        <h3 className="text-lg font-semibold mb-4">📋 분석되는 13개 항목</h3>
+        <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
+          {analysisItems.map((item, index) => (
             <span
               key={index}
-              className="px-4 py-3 bg-steam-dark/60 border border-steam-blue/20 rounded-lg text-steam-light/70 text-sm text-center"
+              className="px-4 py-2 bg-steam-dark/50 border border-steam-blue/20 rounded-full text-steam-light/70 text-sm"
             >
               {item}
             </span>
@@ -237,3 +261,14 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
     </div>
   )
 }
+```
+
+**Commit changes** 클릭!
+
+---
+
+## 2단계: App.tsx에서 Footer만 수정
+
+GitHub에서:
+```
+frontend/src/App.tsx
