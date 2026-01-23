@@ -261,4 +261,3 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
     </div>
   )
 }
-```
