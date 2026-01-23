@@ -39,7 +39,7 @@ function App() {
     setError('')
 
     try {
-      const response = await fetch('/api/analyze', {
+      const response = await fetch('https://steam-review-analyzer.onrender.com/api/analyze', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ function App() {
     setProgress('샘플 데이터를 불러오고 있습니다...')
 
     try {
-      const response = await fetch('/api/sample')
+      const response = await fetch('https://steam-review-analyzer.onrender.com/api/sample')
       const data = await response.json()
 
       if (data.success) {
