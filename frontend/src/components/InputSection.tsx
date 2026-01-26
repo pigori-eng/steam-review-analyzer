@@ -68,11 +68,13 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
     }
   }
 
-  const analysisItems = [
-    '핵심 요약', '사용자 평가', '감정 분석', '플레이타임',
-    '키워드 분석', '지역별 분석', '플레이어 여정', '루팅 시스템',
-    '난이도 밸런스', '기술 이슈', '커뮤니티', '경쟁작 비교', '액션 아이템'
-  ]
+const analysisItems = [
+  'Executive Dashboard',
+  'Game UX Deep-dive', 
+  'Player Journey',
+  'Tech & Market',
+  'LiveOps & Meta'
+]
 
   return (
     <div className="space-y-8">
@@ -210,7 +212,7 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
             </button>
           </div>
           <p className="text-steam-light/50 text-xs mt-2">
-            💡 API 키가 있으면 13개 항목 전체 AI 분석이 가능합니다.
+            💡 API 키가 있으면 5개 핵심 항목 전체 AI 분석이 가능합니다.
             <a
               href={getProviderLink()}
               target="_blank"
@@ -246,7 +248,7 @@ export default function InputSection({ onAnalyze, onSampleTest }: InputSectionPr
 
       {/* 분석 항목 미리보기 */}
       <div className="text-center">
-        <h3 className="text-lg font-semibold mb-6">📋 분석되는 13개 항목</h3>
+        <h3 className="text-lg font-semibold mb-6">📋 분석되는 5개 핵심 모듈</h3>
         <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
           {analysisItems.map((item, index) => (
             <span
