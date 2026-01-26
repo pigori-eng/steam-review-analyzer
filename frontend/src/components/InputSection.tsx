@@ -119,11 +119,11 @@ const analysisItems = [
               onChange={(e) => setReviewCount(Number(e.target.value))}
               className="w-full px-4 py-3 bg-steam-dark/50 border border-steam-blue/30 rounded-lg text-white focus:outline-none focus:border-steam-blue"
             >
-              <option value={50}>50개</option>
               <option value={100}>100개</option>
-              <option value={200}>200개</option>
               <option value={500}>500개</option>
               <option value={1000}>1,000개</option>
+              <option value={10000}>10,000개</option>
+              <option value={0}>모든 리뷰</option>
             </select>
           </div>
           <div>
