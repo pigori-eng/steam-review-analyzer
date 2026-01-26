@@ -210,6 +210,10 @@ class SteamCrawler:
         cursor = '*'
         page = 0
         
+        # 0이면 모든 리뷰 수집
+        if count == 0:
+            count = 999999
+        
         while len(reviews) < count:
             page += 1
             
