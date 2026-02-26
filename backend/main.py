@@ -31,6 +31,24 @@ app.add_middleware(
 tasks: dict = {}
 
 
+def _normalize_reviews(raw_reviews: list) -> list:
+    """crawler.py 필드명 → analyzer.py 필드명 변환"""
+    normalized = []
+    for r in raw_reviews:
+        normalized.append({
+            "voted_up": r.get("recommended", r.get("voted_up", False)),
+            "review": r.get("review_text", r.get("review", "")),
+            "playtime_hours": r.get("playtime_total_hours", r.get("playtime_at_review_hours", r.get("playtime_hours", 0))),
+            "language": r.get("language", "unknown"),
+            "timestamp_created": r.get("timestamp_created", 0),
+            "votes_up": r.get("votes_up", 0),
+            "author_id": r.get("review_id", r.get("author_id", "")),
+        })
+    return normalized
+
+
+
+
 # ── Request Models ──
 class AnalyzeRequest(BaseModel):
     url: str
@@ -89,7 +107,7 @@ async def analyze(req: AnalyzeRequest):
             raise HTTPException(status_code=400, detail="크롤링 실패")
 
         game_info = crawl_result.get("game_info", {})
-        reviews = crawl_result.get("reviews", [])
+        reviews = _normalize_reviews(crawl_result.get("reviews", []))
 
         if not reviews:
             raise HTTPException(status_code=404, detail="리뷰를 찾을 수 없습니다")
@@ -145,7 +163,7 @@ async def _run_analysis(task_id: str, req: AnalyzeRequest):
         tasks[task_id]["message"] = "AI 분석 시작..."
 
         game_info = crawl_result.get("game_info", {})
-        reviews = crawl_result.get("reviews", [])
+        reviews = _normalize_reviews(crawl_result.get("reviews", []))
 
         analyzer = ReviewAnalyzer(api_key=req.api_key, ai_provider=req.ai_provider)
         result = analyzer.analyze(reviews, game_info)
