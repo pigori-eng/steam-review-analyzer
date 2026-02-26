@@ -1,22 +1,13 @@
-# Steam Review Analyzer - Backend Dependencies
-# 설치: pip install -r requirements.txt
-
-# 웹 프레임워크
-fastapi==0.115.0
-uvicorn[standard]==0.32.0
-
-# 데이터 검증
-pydantic==2.9.0
-
-# HTTP 요청 (선택사항 - 기본 urllib 대신 사용 시)
-# requests==2.32.0
-
-# 비동기 처리
-anyio==4.6.0
-
-# 환경변수 관리
-python-dotenv==1.0.1
-
-# 개발용
-# pytest==8.0.0
-# httpx==0.27.0  # 테스트용 async client
+fastapi==0.109.0
+uvicorn==0.27.0
+requests==2.31.0
+python-dotenv==1.0.0
+pydantic==2.5.0
+anthropic==0.18.0
+openai==1.12.0
+google-generativeai==0.4.0
+openpyxl==3.1.2
+pandas==2.2.0
+python-multipart==0.0.9
+httpx==0.26.0
+aiohttp==3.9.0
